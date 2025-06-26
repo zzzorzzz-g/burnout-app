@@ -7,3 +7,4 @@ torch
 nltk
 matplotlib
 seaborn
+plotly
