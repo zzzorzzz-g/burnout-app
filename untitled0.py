@@ -928,6 +928,24 @@ class AdvancedVisualization:
         return fig
 
 # --- Main Streamlit App ---
+@st.cache_resource(show_spinner=False) # Adicione show_spinner=False para esconder o spinner padrão
+def load_nlp_analyzer():
+    """Carrega e armazena em cache o analisador NLP."""
+    analyzer = AdvancedNLPAnalyzer()
+    with st.spinner("Carregando modelos de Análise de Linguagem (NLP)... isso pode levar um momento."):
+        analyzer.setup_specialized_models()
+    return analyzer
+
+@st.cache_resource(show_spinner=False) # Adicione show_spinner=False
+def load_predictor():
+    """Carrega e armazena em cache o seu modelo preditor de burnout."""
+    with st.spinner("Carregando modelo de Predição de Burnout..."):
+        # COMENTÁRIO: Certifique-se de que 'modelo_preditor_burnout.pkl' existe no mesmo diretório ou forneça o caminho correto.
+        return HybridBurnoutPredictor() # <--- Linha alterada
+    
+analyzer = load_nlp_analyzer()
+predictor = load_predictor()
+
 def main():
     st.set_page_config(layout="wide", page_title="Monitorização de Burnout Académico")
     
