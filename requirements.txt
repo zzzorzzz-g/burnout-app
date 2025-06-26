@@ -1,0 +1,7 @@
+streamlit
+pandas
+numpy
+scikit-learn # Se você usa para o seu predictor
+transformers
+torch
+nltk
