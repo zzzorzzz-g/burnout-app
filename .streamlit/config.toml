@@ -1,0 +1,4 @@
+[global]
+post_build_commands = [
+    "python -c \"import torch; from transformers import pipeline; print('Forçando download de modelos Hugging Face...'); pipeline('sentiment-analysis', model='cardiffnlp/twitter-roberta-base-sentiment-latest'); pipeline('text-classification', model='j-hartmann/emotion-english-distilroberta-base'); pipeline('text-classification', model='cimsr/stress-detection'); pipeline('fill-mask', model='adalbertojunior/portuguese-bert-general'); print('Downloads de modelos concluídos com sucesso durante a construção!')\""
+]
