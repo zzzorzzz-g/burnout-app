@@ -995,6 +995,20 @@ def main():
             # st.dataframe(df_final.head())
             
             # Treinar modelo preditivo
+            if df_final is not None and not df_final.empty and len(df_final) >= 5: # Um número mínimo de amostras, ajustável
+                try:
+                    model_training_results = predictor.train_hybrid_model(df_final)
+                    st.session_state['model_training_results'] = model_training_results
+                    # Exiba algo se o treino for bem-sucedido
+                    st.success("Modelo preditivo treinado com sucesso!")
+                except ValueError as e:
+                    # Capture o erro específico de train_test_split
+                    st.error(f"Erro ao treinar o modelo: Dados insuficientes para treinamento com estratificação. Detalhes: {e}")
+                    st.info("Para treinar o modelo preditivo, são necessários mais dados (pelo menos 5 amostras, idealmente muito mais) e com variabilidade nas categorias de burnout.")
+            else:
+                st.info("Dados insuficientes para treinar o modelo preditivo. Por favor, preencha mais questionários ou carregue um dataset para análise.")
+                # Opcional: inicialize resultados de treino para evitar KeyError em outras partes da app
+                st.session_state['model_training_results'] = None
             st.subheader("Modelo Preditivo de Burnout")
             with st.spinner("A treinar o modelo preditivo..."):
                 model_training_results = predictor.train_hybrid_model(df_final)
