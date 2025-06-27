@@ -1,4 +1,7 @@
 [global]
+# Comandos que serão executados após a construção da aplicação (deploy),
+# mas antes da execução do aplicativo Streamlit.
+# Usado para pré-carregar modelos do Hugging Face e evitar o erro 429 "Too Many Requests".
 post_build_commands = [
-    "python -c \"import torch; from transformers import pipeline; print('Forçando download de modelos Hugging Face...'); pipeline('sentiment-analysis', model='cardiffnlp/twitter-roberta-base-sentiment-latest'); pipeline('text-classification', model='j-hartmann/emotion-english-distilroberta-base'); pipeline('text-classification', model='cimsr/stress-detection'); pipeline('fill-mask', model='adalbertojunior/portuguese-bert-general'); print('Downloads de modelos concluídos com sucesso durante a construção!')\""
+    "python -c \"import torch; from transformers import pipeline, AutoTokenizer, AutoModelForSequenceClassification; print('Forçando download de modelos Hugging Face...'); pipeline('sentiment-analysis', model='cardiffnlp/twitter-roberta-base-sentiment-latest'); pipeline('text-classification', model='j-hartmann/emotion-english-distilroberta-base'); pipeline('text-classification', model='cimsr/stress-detection'); pipeline('fill-mask', model='adalbertojunior/portuguese-bert-general'); AutoTokenizer.from_pretrained('neuralmind/bert-base-portuguese-cased'); AutoModelForSequenceClassification.from_pretrained('neuralmind/bert-base-portuguese-cased'); print('Downloads de modelos concluídos com sucesso durante a construção!')\""
 ]
