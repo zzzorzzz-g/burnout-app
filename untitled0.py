@@ -294,7 +294,6 @@ class AdvancedNLPAnalyzer:
 
             except Exception as e:
                 logger.error(f"✗ Erro ao carregar {config['name']}: {e}")
-
     # ... (o resto da sua classe AdvancedNLPAnalyzer continua igual) ...
 
     def analyze_text_comprehensive(self, text: str) -> Dict:
