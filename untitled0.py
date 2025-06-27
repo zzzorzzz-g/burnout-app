@@ -244,7 +244,7 @@ class AdvancedNLPAnalyzer:
         self.models = {}
         self.embeddings_cache = {}
 
-   def setup_specialized_models(self):
+    def setup_specialized_models(self):
         """Configura modelos BERT especializados, incluindo para burnout e português."""
         if not TRANSFORMERS_AVAILABLE:
             logger.warning("Transformers não disponível. Usando apenas NLTK.")
