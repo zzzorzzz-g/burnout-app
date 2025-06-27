@@ -244,34 +244,22 @@ class AdvancedNLPAnalyzer:
         self.models = {}
         self.embeddings_cache = {}
 
-    def setup_specialized_models(self):
+   def setup_specialized_models(self):
         """Configura modelos BERT especializados, incluindo para burnout e português."""
         if not TRANSFORMERS_AVAILABLE:
             logger.warning("Transformers não disponível. Usando apenas NLTK.")
             return
 
+        # *** MODIFICAÇÃO AQUI: DEIXAR APENAS UM MODELO PARA TESTE ***
         model_configs = [
             {
                 'name': 'general_sentiment',
                 'model': 'cardiffnlp/twitter-roberta-base-sentiment-latest',
                 'description': 'Análise de sentimento geral'
-            },
-            {
-                'name': 'emotion_detection',
-                'model': 'j-hartmann/emotion-english-distilroberta-base',
-                'description': 'Deteção de emoções específicas'
-            },
-            {
-                'name': 'stress_detection',
-                'model': 'martin-ha/toxic-comment-model', # Pode ser adaptado ou treinado para stress académico
-                'description': 'Deteção de stress e toxicidade'
-            },
-            {
-                'name': 'portuguese_bert_general',
-                'model': 'neuralmind/bert-base-portuguese-cased',
-                'description': 'Modelo BERT geral para português (base para outras tarefas)'
             }
-            # A entrada para 'mental_health_emotion' foi removida daqui
+            # As outras configurações de modelo foram temporariamente removidas/comentadas para este teste.
+            # Se a app iniciar com sucesso, voltaremos a adicioná-las progressivamente
+            # ou buscaremos uma solução para gerir a memória.
         ]
 
         logger.info("A carregar modelos NLP especializados...")
@@ -282,6 +270,7 @@ class AdvancedNLPAnalyzer:
 
                 if config['name'] == 'portuguese_bert_general':
                     # Para modelos base como BERT português, carregamos para extração de features
+                    # ATENÇÃO: Se este modelo não for o que está ativo no model_configs, este bloco não será executado.
                     pipeline_obj = pipeline(
                         "feature-extraction",
                         model=config['model'],
@@ -305,6 +294,8 @@ class AdvancedNLPAnalyzer:
 
             except Exception as e:
                 logger.error(f"✗ Erro ao carregar {config['name']}: {e}")
+
+    # ... (o resto da sua classe AdvancedNLPAnalyzer continua igual) ...
 
     def analyze_text_comprehensive(self, text: str) -> Dict:
         """Análise abrangente de texto com múltiplos modelos"""
