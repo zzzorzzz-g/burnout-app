@@ -371,7 +371,7 @@ def main():
         Bem-vindo ao Dashboard de Análise de Burnout.
         Esta aplicação ajuda a analisar o risco de burnout através de um questionário e processamento de linguagem natural (PLN).
         """)
-        st.image("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR3y52g-4q0P97xY1-f4cK8_c_g0J8_m_b0Zg&s", use_column_width=True)
+        st.image("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR3y52g-4q0P97xY1-f4cK8_c_g0J8_m_b0Zg&s", use_container_width=True)
         st.markdown("---")
         st.header("Processamento de Respostas Abertas (NLP)")
         
